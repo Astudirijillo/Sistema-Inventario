@@ -61,6 +61,7 @@ public class GenerarInventario {
         this.listaArtDescontado.get(13).setNombre("Lechuga"); // 13 = lechuga
         int i = 0;
         boolean resultado = false;
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
         while (i < this.listArtCons.listaArticulosCons.size()) {
             if (this.listArtCons.listaArticulosCons.get(i).getProducto() == "Hamburguesa") {
                 if (this.listArtCons.listaArticulosCons.get(i).getTamaño() == "Grande") {
@@ -122,11 +123,11 @@ public class GenerarInventario {
     }
 
     public void generarInventarioExcel() throws FileNotFoundException, IOException {
-        direccion.createNewFile();
         HSSFSheet hoja = this.libroContabilidad.createSheet();
         libroContabilidad.setSheetName(0, "Dia 1");
         String[] cabecera = new String[]{"Nombre", "Tamaño", "Cantidad Entrante", "Cantidad Saliente "};
         CellStyle headerStyle = this.libroContabilidad.createCellStyle();
+        int dimension = this.listInv.listaArticulos.size();
         HSSFFont font = this.libroContabilidad.createFont();
         font.setBold(true);
         headerStyle.setFont(font);
@@ -137,13 +138,13 @@ public class GenerarInventario {
             cell.setCellStyle(headerStyle);
             cell.setCellValue(cab);
         }
-        
-        for (int j = 0; j < this.listInv.listaArticulos.size(); j++) {
-            HSSFRow fila = hoja.createRow(j + 1);
-            String nombre = this.listInv.listaArticulos.get(j).getNombre();
-            String tamaño = this.listInv.listaArticulos.get(j).getTamaño();
-            int cantidadBase = this.listInv.listaArticulos.get(j).getCantidad();
-            int cantidadGastada = this.listaArtDescontado.get(j).getCantidad();
+
+        for (int i = 0; i < dimension; i++) {
+            HSSFRow fila = hoja.createRow(i + 1);
+            String nombre = this.listInv.listaArticulos.get(i).getNombre();
+            String tamaño = this.listInv.listaArticulos.get(i).getTamaño();
+            int cantidadBase = this.listInv.listaArticulos.get(i).getCantidad();
+            int cantidadGastada = this.listaArtDescontado.get(i).getCantidad();
 
             fila.createCell(0).setCellValue(nombre);
             fila.createCell(1).setCellValue(tamaño);
