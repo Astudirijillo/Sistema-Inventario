@@ -28,7 +28,7 @@ public class GenerarInventario {
     private ListaInventario listInv;
     private ArrayList<Articulo> listaArtDescontado;
     private boolean resultado = false;
-    private File direccion = new File("archivosExcel//libroContabilidad.xlsx");
+    private File direccion = new File("archivosExcel//libroContabilidad.xls");
     private HSSFWorkbook libroContabilidad = new HSSFWorkbook();
     private int cantidadPapasN = 300;
     private int cantidadPapasG = 500;
@@ -122,8 +122,8 @@ public class GenerarInventario {
     }
 
     public void generarInventarioExcel() throws FileNotFoundException, IOException {
+        direccion.createNewFile();
         HSSFSheet hoja = this.libroContabilidad.createSheet();
-
         libroContabilidad.setSheetName(0, "Dia 1");
         String[] cabecera = new String[]{"Nombre", "Tamaño", "Cantidad Entrante", "Cantidad Saliente "};
         CellStyle headerStyle = this.libroContabilidad.createCellStyle();
@@ -137,6 +137,7 @@ public class GenerarInventario {
             cell.setCellStyle(headerStyle);
             cell.setCellValue(cab);
         }
+        
         for (int j = 0; j < this.listInv.listaArticulos.size(); j++) {
             HSSFRow fila = hoja.createRow(j + 1);
             String nombre = this.listInv.listaArticulos.get(j).getNombre();
@@ -149,9 +150,8 @@ public class GenerarInventario {
             fila.createCell(2).setCellValue(cantidadBase);
             fila.createCell(3).setCellValue(cantidadGastada);
         }
-        FileOutputStream file = new FileOutputStream("data.xls");
-        libroContabilidad.write(file);
-        file.close();
+        FileOutputStream file = new FileOutputStream(direccion);
+        libroContabilidad.write(direccion);
     }
 
 }

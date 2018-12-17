@@ -80,7 +80,8 @@ public class VentanaInventario extends JFrame implements ActionListener {
                 v1.generarInventarioExcel();
                 JOptionPane.showMessageDialog(null, "Archivo creado exitosamente");
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "No se ha podido crear el archivo \nIntente mas tarde");
+                Logger.getLogger(VentanaInventario.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "ERROR \nIntente nuevamente");
             }
         }
         if (pnlBtnsInventario.btnRetorno == e.getSource()) {
