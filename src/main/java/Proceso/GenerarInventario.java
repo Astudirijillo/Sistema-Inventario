@@ -123,26 +123,35 @@ public class GenerarInventario {
 
     public void generarInventarioExcel() throws FileNotFoundException, IOException {
         HSSFSheet hoja = this.libroContabilidad.createSheet();
+
         libroContabilidad.setSheetName(0, "Dia 1");
         String[] cabecera = new String[]{"Nombre", "Tamaño", "Cantidad Entrante", "Cantidad Saliente "};
-        int r = 0;
-        HSSFRow fila = hoja.createRow(r);
+        CellStyle headerStyle = this.libroContabilidad.createCellStyle();
+        HSSFFont font = this.libroContabilidad.createFont();
+        font.setBold(true);
+        headerStyle.setFont(font);
         HSSFRow cabeceraFila = hoja.createRow(0);
-
-        for (int i = 0; i < this.listInv.listaArticulos.size(); ++i) {
-            HSSFRow infoFila = hoja.createRow(i + 1);
-            String nombre = this.listInv.listaArticulos.get(i).getNombre();
-            String tamaño = this.listInv.listaArticulos.get(i).getTamaño();
-            int cantidad = this.listInv.listaArticulos.get(i).getCantidad();
-            int cantidadSalida = this.listaArtDescontado.get(i).getCantidad();
-
-            infoFila.createCell(3).setCellValue(nombre);
-            infoFila.createCell(4).setCellValue(cantidad);
-            infoFila.createCell(5).setCellValue(cantidadSalida);
-            infoFila.createCell(6).setCellValue(tamaño);
+        for (int i = 0; i < 4; i++) {
+            String cab = cabecera[i];
+            HSSFCell cell = cabeceraFila.createCell(i);
+            cell.setCellStyle(headerStyle);
+            cell.setCellValue(cab);
         }
-        HSSFRow dataRow = hoja.createRow(1 + this.listInv.listaArticulos.size());
-        FileOutputStream file = new FileOutputStream("archivosExcel\\libroContabilidad.xlsx");
+        int j = 0;
+        while (j < this.listInv.listaArticulos.size()) {
+            HSSFRow fila = hoja.createRow(j + 1);
+            String nombre = this.listInv.listaArticulos.get(j).getNombre();
+            String tamaño = this.listInv.listaArticulos.get(j).getTamaño();
+            int cantidadBase = this.listInv.listaArticulos.get(j).getCantidad();
+            int cantidadGastada = this.listaArtDescontado.get(j).getCantidad();
+
+            fila.createCell(0).setCellValue(nombre);
+            fila.createCell(1).setCellValue(tamaño);
+            fila.createCell(2).setCellValue(cantidadBase);
+            fila.createCell(3).setCellValue(cantidadGastada);
+            j++;
+        }
+        FileOutputStream file = new FileOutputStream("data.xls");
         libroContabilidad.write(file);
         file.close();
     }
