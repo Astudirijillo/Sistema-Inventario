@@ -125,10 +125,6 @@ public class GenerarInventario {
         HSSFSheet hoja = this.libroContabilidad.createSheet();
         libroContabilidad.setSheetName(0, "Dia 1");
         String[] cabecera = new String[]{"Nombre", "Tamaño", "Cantidad Entrante", "Cantidad Saliente "};
-        CellStyle cabeceraExcel = libroContabilidad.createCellStyle();
-        HSSFFont fuente = libroContabilidad.createFont();
-        fuente.setBold(true);
-        cabeceraExcel.setFont(fuente);
         int r = 0;
         HSSFRow fila = hoja.createRow(r);
         HSSFRow cabeceraFila = hoja.createRow(0);
@@ -144,13 +140,8 @@ public class GenerarInventario {
             infoFila.createCell(4).setCellValue(cantidad);
             infoFila.createCell(5).setCellValue(cantidadSalida);
             infoFila.createCell(6).setCellValue(tamaño);
-
         }
         HSSFRow dataRow = hoja.createRow(1 + this.listInv.listaArticulos.size());
-        HSSFCell total = dataRow.createCell(1);
-        total.setCellType(CellType.FORMULA);
-        total.setCellStyle(cabeceraExcel);
-        total.setCellFormula(String.format("SUM(B2:B%d)", 1 + this.listInv.listaArticulos.size()));
         FileOutputStream file = new FileOutputStream("archivosExcel\\libroContabilidad.xlsx");
         libroContabilidad.write(file);
         file.close();
