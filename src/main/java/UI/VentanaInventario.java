@@ -47,7 +47,7 @@ public class VentanaInventario extends JFrame implements ActionListener {
         this.setTitle("Gestion de Inventario");
         this.visible = true;
         this.setVisible(visible);
-        this.setResizable(true);
+        this.setResizable(false);
 
         pnlBtnsInventario.btnIngresarProducto.addActionListener(this);
         pnlBtnsInventario.btnEliminarProducto.addActionListener(this);

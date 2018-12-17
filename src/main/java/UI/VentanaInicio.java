@@ -19,14 +19,14 @@ import javax.swing.ImageIcon;
  * @author Cristobal
  */
 public class VentanaInicio extends JFrame {
-
+    
     public PanelBotonesInicio pnlBtnsInicio;
     private Image fondo;
     
     public VentanaInicio() {
         this.inicializarComponentes();
     }
-
+    
     private void inicializarComponentes() {
         this.pnlBtnsInicio = new PanelBotonesInicio();
         this.add(this.pnlBtnsInicio, BorderLayout.SOUTH);
@@ -35,6 +35,7 @@ public class VentanaInicio extends JFrame {
         this.setTitle("Inicio");
         this.setSize(400, 150);
         this.setVisible(true);
+        this.setResizable(false);
         
     }
 //    
