@@ -137,8 +137,7 @@ public class GenerarInventario {
             cell.setCellStyle(headerStyle);
             cell.setCellValue(cab);
         }
-        int j = 0;
-        while (j < this.listInv.listaArticulos.size()) {
+        for (int j = 0; j < this.listInv.listaArticulos.size(); j++) {
             HSSFRow fila = hoja.createRow(j + 1);
             String nombre = this.listInv.listaArticulos.get(j).getNombre();
             String tamaño = this.listInv.listaArticulos.get(j).getTamaño();
@@ -149,7 +148,6 @@ public class GenerarInventario {
             fila.createCell(1).setCellValue(tamaño);
             fila.createCell(2).setCellValue(cantidadBase);
             fila.createCell(3).setCellValue(cantidadGastada);
-            j++;
         }
         FileOutputStream file = new FileOutputStream("data.xls");
         libroContabilidad.write(file);
