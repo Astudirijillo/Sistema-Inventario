@@ -38,12 +38,4 @@ public class VentanaInicio extends JFrame {
         this.setResizable(false);
         
     }
-//    
-//    private void preInit(){
-//        this.fondo=new ImageIcon("data//fondoComidas.jpg").getImage();
-//    }
-//    
-//    public void paint(Graphics grafica){
-//        grafica.drawImage(fondo,0,0,getWidth(),getHeight(),this);
-//    }
 }
